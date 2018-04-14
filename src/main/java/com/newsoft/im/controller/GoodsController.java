@@ -38,19 +38,18 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/delete")
-    public RestResult delete(@ModelAttribute("user") User user, String gids) {
-        ArrayList<Goods> list = new ArrayList<Goods>();
-        if (gids.contains(",")) {
-            String[] gidArr = gids.split(",");
-            for (String gid : gidArr) {
-                list.add(goodsService.getOne(Long.valueOf(gid)));
-            }
-        } else {
-            list.add(goodsService.getOne(Long.valueOf(gids)));
-        }
-        goodsService.delete(list);
+    public RestResult delete(@ModelAttribute("user") User user, Long gId) {
+        goodsService.delete(gId, user.getUId());
         return RestResultGenerator.genSuccessResult(null);
     }
 
-
+    @RequestMapping(value = "/update")
+    public RestResult update(@ModelAttribute("user") User user, Long gId, String name, Long tId, Double price) {
+        Goods goods = goodsService.getOne(gId);
+        goods.setName(name);
+        goods.setTId(tId);
+        goods.setPrice(price);
+        goodsService.update(goods);
+        return RestResultGenerator.genSuccessResult(null);
+    }
 }

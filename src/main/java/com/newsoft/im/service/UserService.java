@@ -20,9 +20,9 @@ public interface UserService {
 
     /**
      * 批量删除
-     * @param users
+     * @param user
      */
-    void delete(List<User> users);
+    void delete(User user);
 
     /**
      * 更新用户

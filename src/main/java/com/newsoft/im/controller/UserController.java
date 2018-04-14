@@ -27,8 +27,13 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/search")
-    public RestResult search(@ModelAttribute("user") User user, Long uid) {
-        return RestResultGenerator.genSuccessResult(userService.search(uid));
+    public RestResult search(@ModelAttribute("user") User user, Long uId) {
+        return RestResultGenerator.genSuccessResult(userService.search(uId));
+    }
+
+    @RequestMapping(value = "/getCurrentUser")
+    public RestResult getCurrentUser(@ModelAttribute("user") User user) {
+        return RestResultGenerator.genSuccessResult(userService.getOne(user.getUId()));
     }
 
     @RequestMapping(value = "/update")
@@ -44,10 +49,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/delete")
-    public RestResult delete(@ModelAttribute("user") User user, String uid) {
-        ArrayList<User> list = new ArrayList<User>();
-        list.add(userService.getOne(Long.valueOf(uid)));
-        userService.delete(list);
+    public RestResult delete(@ModelAttribute("user") User user, Long uId) {
+        userService.delete(userService.getOne(uId));
         return RestResultGenerator.genSuccessResult(null);
     }
 }

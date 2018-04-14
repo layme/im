@@ -19,9 +19,9 @@ public interface GoodsService {
 
     /**
      * 批量删除
-     * @param goods
+     * @param gid
      */
-    void delete(List<Goods> goods);
+    void delete(Long gid, Long uId);
 
     /**
      * 更新商品信息

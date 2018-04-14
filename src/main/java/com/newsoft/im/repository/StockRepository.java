@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
-    @Query("select new com.newsoft.im.model.vo.GoodsVO(g.gId, g.name, g.price, gt.name as typeName, u.name as regName, g.regTime, s.number) " +
+    @Query("select new com.newsoft.im.model.vo.GoodsVO(g.gId, g.name, g.price, gt.tId, gt.name as typeName, u.name as regName, g.regTime, s.number) " +
             "from Goods g " +
             "left join Stock s on s.gId = g.gId " +
             "left join GoodsType gt on gt.tId = g.tId " +
@@ -22,7 +22,7 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
             "where g.gId = ?1")
     List<GoodsVO> getByGId(Long gid);
 
-    @Query("select new com.newsoft.im.model.vo.GoodsVO(g.gId, g.name, g.price, gt.name as typeName, u.name as regName, g.regTime, s.number) " +
+    @Query("select new com.newsoft.im.model.vo.GoodsVO(g.gId, g.name, g.price, gt.tId, gt.name as typeName, u.name as regName, g.regTime, s.number) " +
             "from Goods g " +
             "left join Stock s on s.gId = g.gId " +
             "left join GoodsType gt on gt.tId = g.tId " +
